@@ -14,8 +14,9 @@ namespace LaboratorinisGit
 
         static void Main2(string[] args)
         {
+            Student[] students = new Student[1];
 
-            List<Student> students = new List<Student>();
+            int counter = 0;
 
             bool testi = true;
             bool testi2 = true;
@@ -76,11 +77,11 @@ namespace LaboratorinisGit
                 }
 
 
-                students.Add(studentas);
+                students[counter]=studentas;
 
                 studentas.setVidurkis(skaiciuotiVidurki(studentas));
 
-
+                counter++;
 
                 Console.WriteLine("Ar norite dar prideti studenta? (t/n)");
                 String tesimas = Console.ReadLine();
@@ -88,7 +89,11 @@ namespace LaboratorinisGit
                 if (tesimas.Equals("n"))
                 {
                     testi = false;
+                    break;
                 }
+
+
+                Array.Resize(ref students, counter + 1);
 
             }
 
@@ -103,7 +108,7 @@ namespace LaboratorinisGit
 
             Console.WriteLine("---------------------------------------------");
 
-            for (int i = 0; i < students.Count; i++)
+            for (int i = 0; i < students.Length; i++)
             {
                 Console.WriteLine("{0,-10}{1,-15}{2,15}", students.ElementAt(i).getVardas(), students.ElementAt(i).getPavarde(), students.ElementAt(i).getVidurkis());
             }
