@@ -55,12 +55,6 @@ namespace LaboratorinisGit
                 Console.WriteLine("Iveskite egzamino rezultata");
                 double egzaminas = double.Parse(Console.ReadLine());
                 studentas.addEgzaminas(egzaminas);
-                studentas.setVidurkis(skaiciuotiVidurki(studentas));
-                students.Add(studentas);
-
-                studentas.setVidurkis(skaiciuotiVidurki(studentas));
-                studentas.setVidurkis(skaiciuotiMediana(studentas));
-
 
                 if (!jauRode)
                 {
@@ -80,6 +74,11 @@ namespace LaboratorinisGit
                     jauRode = true;
 
                 }
+
+
+                students.Add(studentas);
+
+                studentas.setVidurkis(skaiciuotiVidurki(studentas));
 
 
 
