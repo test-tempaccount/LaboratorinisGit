@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace LaboratorinisGit
 {
 
-    class Program
+    class Program2
     {
 
         static String s = "";
 
-        static void Main(string[] args)
+        static void Main2(string[] args)
         {
 
             List<Student> students = new List<Student>();
@@ -22,77 +22,86 @@ namespace LaboratorinisGit
             bool jauRode = false;
 
 
-            while (testi) {
+            while (testi)
+            {
 
-            testi2 = true;
+                testi2 = true;
 
-            Console.WriteLine("Iveskite varda");
-            String vardas = Console.ReadLine();
+                Console.WriteLine("Iveskite varda");
+                String vardas = Console.ReadLine();
 
-            Console.WriteLine("Iveskite pavarde");
-            String pavarde = Console.ReadLine();
+                Console.WriteLine("Iveskite pavarde");
+                String pavarde = Console.ReadLine();
 
-            Student studentas = new Student(vardas, pavarde);
+                Student studentas = new Student(vardas, pavarde);
 
-            while (testi2) {
+                while (testi2)
+                {
 
-            Console.WriteLine("Iveskite nd pazymius (b - baigti)");
-            String input = Console.ReadLine();
+                    Console.WriteLine("Iveskite nd pazymius (b - baigti)");
+                    String input = Console.ReadLine();
 
-            if (input.Equals("b")) {
-                testi2 = false;
-                break;
-                }else{
-                    studentas.addPazimys(int.Parse(input));
+                    if (input.Equals("b"))
+                    {
+                        testi2 = false;
+                        break;
+                    }
+                    else
+                    {
+                        studentas.addPazimys(int.Parse(input));
+                    }
                 }
-            }
 
-            Console.WriteLine("Iveskite egzamino rezultata");
-            double egzaminas = double.Parse(Console.ReadLine());
-            studentas.addEgzaminas(egzaminas);
-            studentas.setVidurkis(skaiciuotiVidurki(studentas));
-            students.Add(studentas);
+                Console.WriteLine("Iveskite egzamino rezultata");
+                double egzaminas = double.Parse(Console.ReadLine());
+                studentas.addEgzaminas(egzaminas);
+                studentas.setVidurkis(skaiciuotiVidurki(studentas));
+                students.Add(studentas);
 
-            studentas.setVidurkis(skaiciuotiVidurki(studentas));
-            studentas.setVidurkis(skaiciuotiMediana(studentas));
+                studentas.setVidurkis(skaiciuotiVidurki(studentas));
+                studentas.setVidurkis(skaiciuotiMediana(studentas));
 
 
-            if (!jauRode) {
+                if (!jauRode)
+                {
 
-            Console.WriteLine("Naudosite mediana ar vidurki? 1.Mediana 2. Vidurkis");
-            String ats = Console.ReadLine();
+                    Console.WriteLine("Naudosite mediana ar vidurki? 1.Mediana 2. Vidurkis");
+                    String ats = Console.ReadLine();
 
-            if (ats.Equals("2") || ats.Equals("2."))
-            {
-                        s = "v"; 
-            }
-            else if (ats.Equals("1") || ats.Equals("1."))
-            {
+                    if (ats.Equals("2") || ats.Equals("2."))
+                    {
+                        s = "v";
+                    }
+                    else if (ats.Equals("1") || ats.Equals("1."))
+                    {
                         s = "m";
+                    }
+
+                    jauRode = true;
+
+                }
+
+
+
+                Console.WriteLine("Ar norite dar prideti studenta? (t/n)");
+                String tesimas = Console.ReadLine();
+
+                if (tesimas.Equals("n"))
+                {
+                    testi = false;
+                }
+
             }
 
-            jauRode = true;
-
-            }
-           
-
-
-            Console.WriteLine("Ar norite dar prideti studenta? (t/n)");
-            String tesimas = Console.ReadLine();
-
-            if (tesimas.Equals("n")){
-                    testi=false;
-            }
-
-            }
-
-            if (s.Equals("m")) {
+            if (s.Equals("m"))
+            {
                 Console.WriteLine("{0,-10}{1,-20}{2,20}", "Vardas", "Pavarde", "Mediana (Vid.)");
             }
-            else {
+            else
+            {
                 Console.WriteLine("{0,-10}{1,-20}{2,20}", "Vardas", "Pavarde", "Galutinis (Vid.)");
             }
-            
+
             Console.WriteLine("---------------------------------------------");
 
             for (int i = 0; i < students.Count; i++)
@@ -106,12 +115,14 @@ namespace LaboratorinisGit
         {
             double suma = 0;
             List<int> ls = student.getPazymiai();
-            for (int i = 0; i < ls.Count; i++) {
+            for (int i = 0; i < ls.Count; i++)
+            {
                 suma += ls.ElementAt(i);
             }
-            
 
-            if (s.Equals("v")) {
+
+            if (s.Equals("v"))
+            {
                 return 0.3 * (suma / ls.Count) + 0.7 * student.getEgzaminas();
             }
 
@@ -119,14 +130,16 @@ namespace LaboratorinisGit
 
         }
 
-        public List<double> generatePazymiai() {
+        public List<double> generatePazymiai()
+        {
 
             List<double> temp = new List<double>();
 
             Random rnd = new Random();
             int rndKiekis = rnd.Next(0, 6);
 
-            for (int i = 0; i < rndKiekis; i++ ) {
+            for (int i = 0; i < rndKiekis; i++)
+            {
                 int rndPazimys = rnd.Next(0, 11);
                 temp.Add(rndPazimys);
             }
@@ -137,7 +150,8 @@ namespace LaboratorinisGit
 
 
 
-        static double skaiciuotiMediana(Student student) {
+        static double skaiciuotiMediana(Student student)
+        {
 
             int[] tempArray = student.getPazymiai().ToArray();
             int count = tempArray.Length;
@@ -146,20 +160,24 @@ namespace LaboratorinisGit
 
             double mediana = 0;
 
-            if (count % 2 == 0){
+            if (count % 2 == 0)
+            {
 
                 int kaire = tempArray[(count / 2) - 1];
                 int desine = tempArray[(count / 2)];
                 mediana = (kaire + desine) / 2;
 
-            }else{
+            }
+            else
+            {
                 mediana = tempArray[(count / 2)];
             }
 
             return 0.3 * mediana + 0.7 * student.getEgzaminas();
         }
 
-        class Student {
+        class Student
+        {
 
             String name = "";
             String surname = "";
@@ -168,13 +186,15 @@ namespace LaboratorinisGit
             int mediana;
             List<int> pazymiai = new List<int>();
 
-            public Student(String name, String surname) {
+            public Student(String name, String surname)
+            {
                 this.name = name;
                 this.surname = surname;
             }
 
 
-            public void addPazimys(int pazimys) {
+            public void addPazimys(int pazimys)
+            {
                 pazymiai.Add(pazimys);
             }
 
@@ -189,7 +209,8 @@ namespace LaboratorinisGit
             }
 
 
-            public List<int> getPazymiai() {
+            public List<int> getPazymiai()
+            {
                 return pazymiai;
             }
 
