@@ -94,18 +94,18 @@ namespace LaboratorinisGit
 
             if (s.Equals("m"))
             {
-                Console.WriteLine("{0,-10}{1,-20}{2,20}", "Vardas", "Pavarde", "Mediana (Vid.)");
+                Console.WriteLine("{0,-10}{1,-15}{2,15}", "Vardas", "Pavarde", "Mediana (Vid.)");
             }
             else
             {
-                Console.WriteLine("{0,-10}{1,-20}{2,20}", "Vardas", "Pavarde", "Galutinis (Vid.)");
+                Console.WriteLine("{0,-10}{1,-15}{2,15}", "Vardas", "Pavarde", "Galutinis (Vid.)");
             }
 
             Console.WriteLine("---------------------------------------------");
 
             for (int i = 0; i < students.Count; i++)
             {
-                Console.WriteLine("{0,-10}{1,-20}{2,20}", students.ElementAt(i).getVardas(), students.ElementAt(i).getPavarde(), students.ElementAt(i).getVidurkis());
+                Console.WriteLine("{0,-10}{1,-15}{2,15}", students.ElementAt(i).getVardas(), students.ElementAt(i).getPavarde(), students.ElementAt(i).getVidurkis());
             }
 
         }
@@ -164,7 +164,7 @@ namespace LaboratorinisGit
 
                 int kaire = tempArray[(count / 2) - 1];
                 int desine = tempArray[(count / 2)];
-                mediana = (kaire + desine) / 2;
+                mediana = ((double)kaire + (double)desine) / 2;
 
             }
             else
@@ -172,7 +172,7 @@ namespace LaboratorinisGit
                 mediana = tempArray[(count / 2)];
             }
 
-            return 0.3 * mediana + 0.7 * student.getEgzaminas();
+            return mediana;
         }
 
         class Student
