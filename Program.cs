@@ -16,6 +16,8 @@ namespace LaboratorinisGit
         static void Main(string[] args)
         {
 
+            nuskaitytiFaila("");
+
             List<Student> students = new List<Student>();
 
             bool testi = true;
@@ -135,16 +137,52 @@ namespace LaboratorinisGit
 
         }
 
-        public void nuskaitytiFaila(String path) {
+        static List<Student> nuskaitytiFaila(String path) {
 
-            string[] lines = File.ReadAllLines(path);
+            string[] lines = File.ReadAllLines("kursiokai.txt");
 
-            foreach (string line in lines){
-                string[] l = line.Split(' ');
+            int ndKiekis = failoNdKiekis(lines[0]);
+
+            Console.WriteLine(ndKiekis);
+       
+            List<Student> tempSt = new List<Student>();
+
+            foreach (string line in lines.Skip(1)){
+
+                    string[] l = line.Split(' ');
+                    List<int> ndPazymiai = new List<int>();
+                    int egzaminas;
+
+                    for (int i = 2; i < ndKiekis+2; i++)
+                        ndPazymiai.Add(int.Parse(l[i]));
+
+                    egzaminas = int.Parse(l[ndKiekis + 2]);
+
+                    Student student = new Student(l[0], l[1]);
+                    student.addEgzaminas(egzaminas);
+                    student.setPazymiai(ndPazymiai);
+
+                    tempSt.Add(student);
+            }
+
+            return tempSt;
+        }
+
+        public static int failoNdKiekis(String s){
+
+            string[] l = s.Split(' ');
+            int ndIndex = 0;
+
+            for (int i = 2; i < l.Length; i++){
+
+                if (l[i].StartsWith("ND"))
+                {
+                    ndIndex++;
+                }
 
             }
 
-
+                return ndIndex;
         }
 
 
@@ -185,7 +223,7 @@ namespace LaboratorinisGit
                 this.surname = surname;
             }
 
-            public void addPazymiai(List<int> pazymiai)
+            public void setPazymiai(List<int> pazymiai)
             {
                 this.pazymiai = pazymiai;
             }
