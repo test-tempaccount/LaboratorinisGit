@@ -41,10 +41,12 @@ namespace LaboratorinisGit
             Console.WriteLine("{0,-10}{1,-15}{2,15}{3,20}", "Vardas", "Pavarde", "Galutinis (Vid.)", "Galutinis (Med.)");
             Console.WriteLine("--------------------------------------------------------------");
 
-            for (int i = 0; i < students.Count; i++)
+            IEnumerable<Student> orderByVardas = students.OrderBy(p => p.getVardas());
+
+            foreach (Student std in orderByVardas)
             {
-                Console.WriteLine("{0,-10}{1,-15}{2,15}{3,20}", students.ElementAt(i).getVardas(), students.ElementAt(i).getPavarde(), 
-                    tikVidurkis(students.ElementAt(i)), tikMediana(students.ElementAt(i)) );
+                Console.WriteLine("{0,-10}{1,-15}{2,15}{3,20}", std.getVardas(), std.getPavarde(),
+                    tikVidurkis(std), tikMediana(std));
             }
 
         }
