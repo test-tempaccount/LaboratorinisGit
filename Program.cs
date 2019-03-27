@@ -12,89 +12,130 @@ namespace LaboratorinisGit
     {
 
         static String s = "";
+        static List<Student> students = new List<Student>();
 
         static void Main(string[] args)
         {
 
-            nuskaitytiFaila("");
+            Console.WriteLine("Ivesti duomenis is failo (1). Ivesti duomenis su klaviatura (2).");
 
-            List<Student> students = new List<Student>();
+            String pasirinkimas = Console.ReadLine();
+
+            if (pasirinkimas.Equals("1"))
+            {
+                pridetiSuFailu();
+            }
+            else
+            {
+                pridetiSuKlaviatura();
+            }
+
+
+        }
+
+        static void pridetiSuFailu()
+        {
+
+            students = nuskaitytiFaila("kursiokai.txt");
+
+            Console.WriteLine("{0,-10}{1,-15}{2,15}{3,20}", "Vardas", "Pavarde", "Galutinis (Vid.)", "Galutinis (Med.)");
+            Console.WriteLine("--------------------------------------------------------------");
+
+            for (int i = 0; i < students.Count; i++)
+            {
+                Console.WriteLine("{0,-10}{1,-15}{2,15}{3,20}", students.ElementAt(i).getVardas(), students.ElementAt(i).getPavarde(), 
+                    tikVidurkis(students.ElementAt(i)), tikMediana(students.ElementAt(i)) );
+            }
+
+        }
+
+        static void pridetiSuKlaviatura()
+        {
 
             bool testi = true;
             bool testi2 = true;
             bool jauRode = false;
 
 
-            while (testi) {
+            while (testi)
+            {
 
-            testi2 = true;
+                testi2 = true;
 
-            Console.WriteLine("Iveskite varda");
-            String vardas = Console.ReadLine();
+                Console.WriteLine("Iveskite varda");
+                String vardas = Console.ReadLine();
 
-            Console.WriteLine("Iveskite pavarde");
-            String pavarde = Console.ReadLine();
+                Console.WriteLine("Iveskite pavarde");
+                String pavarde = Console.ReadLine();
 
-            Student studentas = new Student(vardas, pavarde);
+                Student studentas = new Student(vardas, pavarde);
 
-            while (testi2) {
+                while (testi2)
+                {
 
-            Console.WriteLine("Iveskite nd pazymius (b - baigti)");
-            String input = Console.ReadLine();
+                    Console.WriteLine("Iveskite nd pazymius (b - baigti)");
+                    String input = Console.ReadLine();
 
-            if (input.Equals("b")) {
-                testi2 = false;
-                break;
-                }else{
-                    studentas.addPazimys(int.Parse(input));
+                    if (input.Equals("b"))
+                    {
+                        testi2 = false;
+                        break;
+                    }
+                    else
+                    {
+                        studentas.addPazimys(int.Parse(input));
+                    }
                 }
-            }
 
-            Console.WriteLine("Iveskite egzamino rezultata");
-            double egzaminas = double.Parse(Console.ReadLine());
-            studentas.addEgzaminas(egzaminas);
+                Console.WriteLine("Iveskite egzamino rezultata");
+                double egzaminas = double.Parse(Console.ReadLine());
+                studentas.addEgzaminas(egzaminas);
 
-            if (!jauRode) {
+                if (!jauRode)
+                {
 
-            Console.WriteLine("Naudosite mediana ar vidurki? 1.Mediana 2. Vidurkis");
-            String ats = Console.ReadLine();
+                    Console.WriteLine("Naudosite mediana ar vidurki? 1.Mediana 2. Vidurkis");
+                    String ats = Console.ReadLine();
 
-            if (ats.Equals("2") || ats.Equals("2."))
-            {
-                        s = "v"; 
-            }
-            else if (ats.Equals("1") || ats.Equals("1."))
-            {
+                    if (ats.Equals("2") || ats.Equals("2."))
+                    {
+                        s = "v";
+                    }
+                    else if (ats.Equals("1") || ats.Equals("1."))
+                    {
                         s = "m";
+                    }
+
+                    jauRode = true;
+
+                }
+
+
+                students.Add(studentas);
+
+                studentas.setVidurkis(skaiciuotiVidurki(studentas));
+
+
+
+                Console.WriteLine("Ar norite dar prideti studenta? (t/n)");
+                String tesimas = Console.ReadLine();
+
+                if (tesimas.Equals("n"))
+                {
+                    testi = false;
+                }
+
             }
 
-            jauRode = true;
-
-            }
-
-
-            students.Add(studentas);
-
-            studentas.setVidurkis(skaiciuotiVidurki(studentas));
-
-
-
-            Console.WriteLine("Ar norite dar prideti studenta? (t/n)");
-            String tesimas = Console.ReadLine();
-
-            if (tesimas.Equals("n")){
-                    testi=false;
-            }
-
-            }
-
-            if (s.Equals("m")) {
+            if (s.Equals("m"))
+            {
                 Console.WriteLine("{0,-10}{1,-15}{2,15}", "Vardas", "Pavarde", "Mediana (Vid.)");
             }
-            else {
+            else
+            {
                 Console.WriteLine("{0,-10}{1,-15}{2,15}", "Vardas", "Pavarde", "Galutinis (Vid.)");
             }
-            
+
             Console.WriteLine("---------------------------------------------");
 
             for (int i = 0; i < students.Count; i++)
@@ -121,6 +162,23 @@ namespace LaboratorinisGit
 
         }
 
+        static double tikVidurkis(Student student)
+        {
+            double suma = 0;
+            List<int> ls = student.getPazymiai();
+            for (int i = 0; i < ls.Count; i++)
+            {
+                suma += ls.ElementAt(i);
+            }
+
+            return 0.3 * (suma / ls.Count) + 0.7 * student.getEgzaminas();
+        }
+
+        static double tikMediana(Student student)
+        {
+            return 0.3 * skaiciuotiMediana(student) + 0.7 * student.getEgzaminas();
+        }
+
         public List<double> generatePazymiai() {
 
             List<double> temp = new List<double>();
@@ -139,7 +197,7 @@ namespace LaboratorinisGit
 
         static List<Student> nuskaitytiFaila(String path) {
 
-            string[] lines = File.ReadAllLines("kursiokai.txt");
+            string[] lines = File.ReadAllLines(path);
 
             int ndKiekis = failoNdKiekis(lines[0]);
 
