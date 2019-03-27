@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -134,6 +135,18 @@ namespace LaboratorinisGit
 
         }
 
+        public void nuskaitytiFaila(String path) {
+
+            string[] lines = File.ReadAllLines(path);
+
+            foreach (string line in lines){
+                string[] l = line.Split(' ');
+
+            }
+
+
+        }
+
 
 
         static double skaiciuotiMediana(Student student) {
@@ -172,6 +185,10 @@ namespace LaboratorinisGit
                 this.surname = surname;
             }
 
+            public void addPazymiai(List<int> pazymiai)
+            {
+                this.pazymiai = pazymiai;
+            }
 
             public void addPazimys(int pazimys) {
                 pazymiai.Add(pazimys);
