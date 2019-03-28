@@ -82,7 +82,8 @@ namespace LaboratorinisGit {
 
                 if (neigEgz == true || neigNd == true)
                 {
-
+                    Console.WriteLine("{0,-10}{1,-15}{2,15}", std.getVardas(), std.getPavarde(),
+                    "Netinkamas simbolis egzamine arba ND");
                 }
                 else
                 {
