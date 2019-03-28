@@ -15,17 +15,34 @@ namespace LaboratorinisGit {
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Ivesti duomenis is failo (1). Ivesti duomenis su klaviatura (2).");
+            
 
-            String pasirinkimas = Console.ReadLine();
+            while (true) {
 
-            if (pasirinkimas.Equals("1"))
-            {
-                pridetiSuFailu();
-            }
-            else
-            {
-                pridetiSuKlaviatura();
+                Console.WriteLine("Ivesti duomenis is failo (1). Ivesti duomenis su klaviatura (2).");
+
+                try
+                {
+                    String pasirinkimas = Console.ReadLine();
+                    //bool a = pasirinkimas.All(char.IsDigit);
+                    int a = int.Parse(pasirinkimas);
+
+
+                    if (a == 1)
+                    {
+                        pridetiSuFailu();
+                    }
+                    else if (a == 2)
+                    {
+                        pridetiSuKlaviatura();
+                    } else {
+                        Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1 arba 2");
+                    }
+
+                } catch (FormatException e) {
+                    Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1 arba 2");
+                }
+
             }
 
 
@@ -34,7 +51,11 @@ namespace LaboratorinisGit {
         static void pridetiSuFailu()
         {
 
+            
             students = nuskaitytiFaila("kursiokai.txt");
+
+            if (students == null)
+                return;
 
             Console.WriteLine("{0,-10}{1,-15}{2,15}{3,20}", "Vardas", "Pavarde", "Galutinis (Vid.)", "Galutinis (Med.)");
             Console.WriteLine("--------------------------------------------------------------");
@@ -94,14 +115,14 @@ namespace LaboratorinisGit {
                 if (!jauRode)
                 {
 
-                    Console.WriteLine("Naudosite mediana ar vidurki? 1.Mediana 2. Vidurkis");
+                    Console.WriteLine("Naudosite mediana ar vidurki? (1) Mediana (2) Vidurkis");
                     String ats = Console.ReadLine();
 
-                    if (ats.Equals("2") || ats.Equals("2."))
+                    if (ats.Equals("2"))
                     {
                         s = "v";
                     }
-                    else if (ats.Equals("1") || ats.Equals("1."))
+                    else if (ats.Equals("1"))
                     {
                         s = "m";
                     }
@@ -196,12 +217,28 @@ namespace LaboratorinisGit {
         }
 
         static List<Student> nuskaitytiFaila(String path) {
+            string[] lines = new string[0];
+            bool f = true;
+            while (f) {
+                try
+                {
 
-            string[] lines = File.ReadAllLines(path, Encoding.GetEncoding(1257));
+                    lines = File.ReadAllLines(path, Encoding.GetEncoding(1257));
+                    
+                    f = false;
+                } catch (Exception e) {
+                    Console.WriteLine("Nerastas failas 'kursiokai.txt'. Ikelkite faila ir paspauskite betkoki klavisa, kad testi");
+                    Console.ReadKey();
+                }
+            }
+        
 
             int ndKiekis = failoNdKiekis(lines[0]);
 
-            Console.WriteLine(ndKiekis);
+            if (ndKiekis == 0) {
+                Console.WriteLine("Faile 'kursiokai.txt' nera nurodyto nei vieno pazymio.");
+                return null;
+            }
        
             List<Student> tempSt = new List<Student>();
 
@@ -211,8 +248,10 @@ namespace LaboratorinisGit {
                     List<int> ndPazymiai = new List<int>();
                     int egzaminas;
 
-                    for (int i = 2; i < ndKiekis+2; i++)
+                    for (int i = 2; i < ndKiekis + 2; i++)
+                    {
                         ndPazymiai.Add(int.Parse(l[i]));
+                    }
 
                     egzaminas = int.Parse(l[ndKiekis + 2]);
 
