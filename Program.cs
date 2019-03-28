@@ -64,11 +64,37 @@ namespace LaboratorinisGit {
 
             foreach (Student std in orderByVardas)
             {
-                Console.WriteLine("{0,-10}{1,-15}{2,15}{3,20}", std.getVardas(), std.getPavarde(),
+
+                bool neigEgz = false;
+                bool neigNd = false;
+
+                if (std.getEgzaminas() == -1)
+                {
+                    neigEgz = true;
+                }
+
+                foreach(int vi in std.getPazymiai()){
+                    if (vi == -1)
+                    {
+                        neigNd = true;
+                    }
+                }
+
+                if (neigEgz == true || neigNd == true)
+                {
+
+                }
+                else
+                {
+                    Console.WriteLine("{0,-10}{1,-15}{2,15}{3,20}", std.getVardas(), std.getPavarde(),
                     tikVidurkis(std), tikMediana(std));
+                }
+                
             }
 
         }
+
+        
 
         static void pridetiSuKlaviatura()
         {
@@ -192,6 +218,8 @@ namespace LaboratorinisGit {
                 suma += ls.ElementAt(i);
             }
 
+            
+
             return 0.3 * (suma / ls.Count) + 0.7 * student.getEgzaminas();
         }
 
@@ -250,10 +278,25 @@ namespace LaboratorinisGit {
 
                     for (int i = 2; i < ndKiekis + 2; i++)
                     {
+                        
+                        if ( l[i].All(Char.IsDigit) ) {
                         ndPazymiai.Add(int.Parse(l[i]));
+                    }else {
+                        ndPazymiai.Add(-1);
                     }
 
+                        
+                    }
+
+                if (l[ndKiekis + 2].All(char.IsDigit))
+                {
                     egzaminas = int.Parse(l[ndKiekis + 2]);
+                    
+                }
+                else
+                {
+                    egzaminas = -1;
+                }
 
                     Student student = new Student(l[0], l[1]);
                     student.addEgzaminas(egzaminas);
