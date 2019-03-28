@@ -199,7 +199,7 @@ namespace LaboratorinisGit
 
         static List<Student> nuskaitytiFaila(String path) {
 
-            string[] lines = File.ReadAllLines(path);
+            string[] lines = File.ReadAllLines(path, Encoding.GetEncoding(1257));
 
             int ndKiekis = failoNdKiekis(lines[0]);
 
