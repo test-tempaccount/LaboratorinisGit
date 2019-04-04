@@ -95,6 +95,26 @@ namespace LaboratorinisGit {
 
         }
 
+
+        static void rusiavimasIFailus()
+        {
+
+            int[] failai = { 10, 100, 1000, 10000, 100000 };
+            
+            List<Student> vargsiukai = new List<Student>();
+            List<Student> kietiakai = new List<Student>();
+
+            
+
+            foreach (int f in failai)
+            {
+                string[] lines = File.ReadAllLines(f+".txt", Encoding.GetEncoding(1257));
+
+
+            }
+
+        }
+
         
 
         static void pridetiSuKlaviatura()
@@ -244,7 +264,6 @@ namespace LaboratorinisGit {
 
         static int generateEgzaminas(Random rnd)
         {
-
             return rnd.Next(1, 11);
         }
 
@@ -255,12 +274,10 @@ namespace LaboratorinisGit {
             while (f) {
                 try
                 {
-
                     lines = File.ReadAllLines(path, Encoding.GetEncoding(1257));
-                    
                     f = false;
                 } catch (Exception e) {
-                    Console.WriteLine("Nerastas failas 'kursiokai.txt'. Ikelkite faila ir paspauskite betkoki klavisa, kad testi");
+                    Console.WriteLine("Nerastas failas "+path+". Ikelkite faila ir paspauskite betkoki klavisa, kad testi");
                     Console.ReadKey();
                 }
             }
@@ -269,7 +286,7 @@ namespace LaboratorinisGit {
             int ndKiekis = failoNdKiekis(lines[0]);
 
             if (ndKiekis == 0) {
-                Console.WriteLine("Faile 'kursiokai.txt' nera nurodyto nei vieno pazymio.");
+                Console.WriteLine("Faile "+path+" nera nurodyto nei vieno pazymio.");
                 return null;
             }
        
@@ -321,24 +338,22 @@ namespace LaboratorinisGit {
             foreach (int f in failai){
 
                 String header = "Vardas Pavarde ND1 ND2 ND3 ND4 ND5 Egzaminas";
-                String visasTekstas = "";
+                StringBuilder visasTekstas = new StringBuilder();
                 Random rnd = new Random();
 
-                visasTekstas += header + "\n";
+                visasTekstas.Append(header + "\n");
 
                 for (int i = 0; i < f; i++)
                 {
-
                     String vardas = "Vardas" + (i + 1);
                     String pavarde = "Pavarde" + (i + 1);
                     String arrPazymiai = string.Join(" ", generatePazymiai(5, rnd));
-                    visasTekstas += vardas + " " + pavarde + " " + arrPazymiai + " " + generateEgzaminas(rnd);
-                    visasTekstas += "\n";
+                    visasTekstas.Append(vardas + " " + pavarde + " " + arrPazymiai + " " + generateEgzaminas(rnd));
+                    visasTekstas.Append("\n");
                 }
 
-                File.WriteAllText(f+".txt", visasTekstas);
+                File.WriteAllText(f+".txt", visasTekstas.ToString());
                
-                
             }
         }
 
