@@ -229,14 +229,13 @@ namespace LaboratorinisGit {
             return 0.3 * skaiciuotiMediana(student) + 0.7 * student.getEgzaminas();
         }
 
-        public List<double> generatePazymiai() {
+        static List<int> generatePazymiai(int kiekis) {
 
-            List<double> temp = new List<double>();
+            List<int> temp = new List<int>();
 
             Random rnd = new Random();
-            int rndKiekis = rnd.Next(0, 6);
 
-            for (int i = 0; i < rndKiekis; i++ ) {
+            for (int i = 0; i < kiekis; i++ ) {
                 int rndPazimys = rnd.Next(0, 11);
                 temp.Add(rndPazimys);
             }
@@ -244,6 +243,14 @@ namespace LaboratorinisGit {
             return temp;
 
         }
+
+        static int generateEgzaminas()
+        {
+
+            Random rnd = new Random();
+            return rnd.Next(0, 11);
+        }
+
 
         static List<Student> nuskaitytiFaila(String path) {
             string[] lines = new string[0];
@@ -307,6 +314,35 @@ namespace LaboratorinisGit {
             }
 
             return tempSt;
+        }
+
+        static void irasytiIFaila()
+        {
+
+            int[] failai = { 10, 100, 1000, 10000, 100000 };
+
+            foreach (int f in failai){
+
+                String visasTekstas = "";
+
+                for (int i = 0; i < f; i++)
+                {
+
+                    String vardas = "Vardas" + i + 1;
+                    String pavarde = "Pavarde" + i + 1;
+
+                    visasTekstas += vardas + " " + pavarde + generatePazymiai(10);
+
+
+
+
+
+                }
+
+
+            }
+
+
         }
 
         public static int failoNdKiekis(String s){
