@@ -16,6 +16,7 @@ namespace LaboratorinisGit {
         {
 
             irasytiIFaila();
+            rusiavimasIFailus();
             
             while (true) {
 
@@ -99,19 +100,54 @@ namespace LaboratorinisGit {
         static void rusiavimasIFailus()
         {
 
-            int[] failai = { 10, 100, 1000, 10000, 100000 };
+
+            int[] failai = {10, 100, 1000, 10000, 100000 };
             
             List<Student> vargsiukai = new List<Student>();
             List<Student> kietiakai = new List<Student>();
 
-            
-
             foreach (int f in failai)
             {
-                string[] lines = File.ReadAllLines(f+".txt", Encoding.GetEncoding(1257));
+                List<Student> failoStudentai = nuskaitytiFaila(f+".txt");
 
+                foreach (Student student in failoStudentai)
+                {
+
+                    double studentoVidurkis = tikVidurkis(student);
+
+                    if (studentoVidurkis < 5)
+                    {
+                        vargsiukai.Add(student);
+                        
+                    }
+                    else
+                    {
+                        kietiakai.Add(student);
+                        
+                    }
+                }
 
             }
+
+            StringBuilder eilute = new StringBuilder();
+
+            foreach(Student student in vargsiukai)
+            {
+                string fg = string.Join(" ", student.getPazymiai());
+                eilute.Append(student.getVardas() + " " + student.getPavarde() + " " + fg +  " " + student.getEgzaminas() + "\n");
+            }
+
+            File.WriteAllText("vargsiukai.txt", eilute.ToString());
+
+            eilute.Clear();
+
+            foreach (Student student in kietiakai)
+            {
+                string fg = string.Join(" ", student.getPazymiai());
+                eilute.Append(student.getVardas() + " " + student.getPavarde() + " " + fg + " " + student.getEgzaminas() + "\n");
+            }
+
+            File.WriteAllText("kietiakai.txt", eilute.ToString());
 
         }
 
@@ -353,7 +389,7 @@ namespace LaboratorinisGit {
                 }
 
                 File.WriteAllText(f+".txt", visasTekstas.ToString());
-               
+
             }
         }
 
