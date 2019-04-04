@@ -15,8 +15,8 @@ namespace LaboratorinisGit {
         static void Main(string[] args)
         {
 
+            irasytiIFaila();
             
-
             while (true) {
 
                 Console.WriteLine("Ivesti duomenis is failo (1). Ivesti duomenis su klaviatura (2).");
@@ -229,26 +229,23 @@ namespace LaboratorinisGit {
             return 0.3 * skaiciuotiMediana(student) + 0.7 * student.getEgzaminas();
         }
 
-        static List<int> generatePazymiai(int kiekis) {
+        static List<int> generatePazymiai(int kiekis, Random rnd) {
 
             List<int> temp = new List<int>();
 
-            Random rnd = new Random();
-
             for (int i = 0; i < kiekis; i++ ) {
-                int rndPazimys = rnd.Next(0, 11);
+                int rndPazimys = rnd.Next(1, 11);
                 temp.Add(rndPazimys);
             }
-
+           
             return temp;
 
         }
 
-        static int generateEgzaminas()
+        static int generateEgzaminas(Random rnd)
         {
 
-            Random rnd = new Random();
-            return rnd.Next(0, 11);
+            return rnd.Next(1, 11);
         }
 
 
@@ -323,26 +320,26 @@ namespace LaboratorinisGit {
 
             foreach (int f in failai){
 
+                String header = "Vardas Pavarde ND1 ND2 ND3 ND4 ND5 Egzaminas";
                 String visasTekstas = "";
+                Random rnd = new Random();
+
+                visasTekstas += header + "\n";
 
                 for (int i = 0; i < f; i++)
                 {
 
-                    String vardas = "Vardas" + i + 1;
-                    String pavarde = "Pavarde" + i + 1;
-
-                    visasTekstas += vardas + " " + pavarde + generatePazymiai(10);
-
-
-
-
-
+                    String vardas = "Vardas" + (i + 1);
+                    String pavarde = "Pavarde" + (i + 1);
+                    String arrPazymiai = string.Join(" ", generatePazymiai(5, rnd));
+                    visasTekstas += vardas + " " + pavarde + " " + arrPazymiai + " " + generateEgzaminas(rnd);
+                    visasTekstas += "\n";
                 }
 
-
+                File.WriteAllText(f+".txt", visasTekstas);
+               
+                
             }
-
-
         }
 
         public static int failoNdKiekis(String s){
