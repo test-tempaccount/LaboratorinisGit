@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
 
 namespace LaboratorinisGit {
 
@@ -14,13 +15,11 @@ namespace LaboratorinisGit {
 
         static void Main(string[] args)
         {
-
-            irasytiIFaila();
-            rusiavimasIFailus();
             
             while (true) {
 
-                Console.WriteLine("Ivesti duomenis is failo (1). Ivesti duomenis su klaviatura (2).");
+                students.Clear();
+                Console.WriteLine("Ivesti duomenis: is failo (1), su klaviatura (2). Generuoti ir isrusiuoti (3)");
 
                 try
                 {
@@ -36,17 +35,31 @@ namespace LaboratorinisGit {
                     else if (a == 2)
                     {
                         pridetiSuKlaviatura();
-                    } else {
-                        Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1 arba 2");
+                    }
+                    else if (a == 3)
+                    {
+                        generuotIrRusiuot();
+                    } else { 
+                        Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1, 2 arba 3");
                     }
 
                 } catch (FormatException e) {
-                    Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1 arba 2");
+                    Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1, 2 arba 3");
                 }
 
             }
 
 
+        }
+
+        static void generuotIrRusiuot()
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            irasytiIFaila();
+            rusiavimasIFailus();
+            stopwatch.Stop();
+            Console.WriteLine("Failu kurimas ir rusiavimas uztruko " + (double)stopwatch.ElapsedMilliseconds/1000 + " sekundes");
         }
 
         static void pridetiSuFailu()
