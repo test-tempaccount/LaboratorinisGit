@@ -20,7 +20,7 @@ namespace LaboratorinisGit {
             while (true) {
 
                 students.Clear();
-                Console.WriteLine("Ivesti duomenis: is failo (1), su klaviatura (2).\nGeneruoti ir isrusiuoti (3).Tik rusiuoti ir matuoti (4).");
+                Console.WriteLine("Ivesti duomenis: is failo (1), su klaviatura (2).\nGeneruoti ir isrusiuoti (3). Tik rusiuoti ir matuoti (4).");
 
                 try
                 {
@@ -120,7 +120,17 @@ namespace LaboratorinisGit {
             Queue<Student> queueVargsiukai = new Queue<Student>();
             Queue<Student> queueKietiakai = new Queue<Student>();
 
-            List<Student> failoStudentai = nuskaitytiFaila("1000000.txt");
+            Console.WriteLine("Iveskite failo pavadinima (tinka tik .txt)");
+            String path = Console.ReadLine();
+
+            List<Student> failoStudentai;
+            if (path.Contains(".txt")) {
+                failoStudentai = nuskaitytiFaila(path);
+            }
+            else
+            {
+                failoStudentai = nuskaitytiFaila(path + ".txt");
+            }
 
             Stopwatch sss = new Stopwatch();
             sss.Start();
@@ -143,7 +153,7 @@ namespace LaboratorinisGit {
             }
 
             sss.Stop();
-            Console.WriteLine("Failu kurimas ir rusiavimas uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            Console.WriteLine("Failu rusiavimas uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
             sss.Reset();
 
             LinkedList<Student> linkedStudentai = new LinkedList<Student>(failoStudentai);
@@ -203,7 +213,6 @@ namespace LaboratorinisGit {
 
         static void rusiavimasIFailus()
         {
-
 
             int[] failai = {10, 100, 1000, 10000, 100000};
             
