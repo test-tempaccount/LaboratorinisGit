@@ -20,14 +20,12 @@ namespace LaboratorinisGit {
             while (true) {
 
                 students.Clear();
-                Console.WriteLine("Ivesti duomenis: is failo (1), su klaviatura (2). Generuoti ir isrusiuoti (3).\nTik rusiuoti ir matuoti (4).");
+                Console.WriteLine("Ivesti duomenis: is failo (1), su klaviatura (2).\nGeneruoti ir isrusiuoti (3).Tik rusiuoti ir matuoti (4).");
 
                 try
                 {
                     String pasirinkimas = Console.ReadLine();
-                    //bool a = pasirinkimas.All(char.IsDigit);
                     int a = int.Parse(pasirinkimas);
-
 
                     if (a == 1)
                     {
@@ -41,7 +39,7 @@ namespace LaboratorinisGit {
                     {
                         generuotIrRusiuot();
                     } else if (a == 4) {
-                        rusiavimasBeFailo();
+                        rusiavimasIrMatavimas();
                     } else { 
                         Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1, 2 arba 3");
                     }
@@ -68,7 +66,6 @@ namespace LaboratorinisGit {
         static void pridetiSuFailu()
         {
 
-            
             students = nuskaitytiFaila("kursiokai.txt");
 
             if (students == null)
@@ -112,20 +109,52 @@ namespace LaboratorinisGit {
 
         }
 
-        static void rusiavimasBeFailo() {
+        static void rusiavimasIrMatavimas() {
 
+            List<Student> vargsiukai = new List<Student>();
+            List<Student> kietiakai = new List<Student>();
 
+            LinkedList<Student> linkedVargsiukai = new LinkedList<Student>();
+            LinkedList<Student> linkedKietiakai = new LinkedList<Student>();
 
+            Queue<Student> queueVargsiukai = new Queue<Student>();
+            Queue<Student> queueKietiakai = new Queue<Student>();
 
+            List<Student> failoStudentai = nuskaitytiFaila("1000000.txt");
+
+            Stopwatch sss = new Stopwatch();
+            sss.Start();
+
+            foreach (Student student in failoStudentai)
+            {
+
+                double studentoVidurkis = tikVidurkis(student);
+
+                if (studentoVidurkis < 5)
+                {
+                    vargsiukai.Add(student);
+
+                }
+                else
+                {
+                    kietiakai.Add(student);
+
+                }
+            }
+
+            sss.Stop();
+            Console.WriteLine("Failu kurimas ir rusiavimas uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            sss.Reset();
 
         }
+
 
 
         static void rusiavimasIFailus()
         {
 
 
-            int[] failai = {10, 100, 1000, 10000, 100000 };
+            int[] failai = {10, 100, 1000, 10000, 100000};
             
             List<Student> vargsiukai = new List<Student>();
             List<Student> kietiakai = new List<Student>();
@@ -133,6 +162,7 @@ namespace LaboratorinisGit {
             foreach (int f in failai)
             {
                 List<Student> failoStudentai = nuskaitytiFaila(f+".txt");
+                
 
                 foreach (Student student in failoStudentai)
                 {
@@ -329,12 +359,14 @@ namespace LaboratorinisGit {
 
 
         static List<Student> nuskaitytiFaila(String path) {
-            string[] lines = new string[0];
+
+            IEnumerable<String> lines = null;
+
             bool f = true;
             while (f) {
                 try
                 {
-                    lines = File.ReadAllLines(path, Encoding.GetEncoding(1257));
+                    lines = File.ReadLines(path, Encoding.GetEncoding(1257));
                     f = false;
                 } catch (Exception e) {
                     Console.WriteLine("Nerastas failas "+path+". Ikelkite faila ir paspauskite betkoki klavisa, kad testi");
@@ -343,7 +375,7 @@ namespace LaboratorinisGit {
             }
         
 
-            int ndKiekis = failoNdKiekis(lines[0]);
+            int ndKiekis = failoNdKiekis(lines.First());
 
             if (ndKiekis == 0) {
                 Console.WriteLine("Faile "+path+" nera nurodyto nei vieno pazymio.");
@@ -394,7 +426,7 @@ namespace LaboratorinisGit {
         static void irasytiIFaila()
         {
 
-            int[] failai = { 10, 100, 1000, 10000, 100000 };
+            int[] failai = { 10, 100, 1000, 10000, 100000};
 
             foreach (int f in failai){
 
