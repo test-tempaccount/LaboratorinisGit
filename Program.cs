@@ -19,7 +19,7 @@ namespace LaboratorinisGit {
             while (true) {
 
                 students.Clear();
-                Console.WriteLine("Ivesti duomenis: is failo (1), su klaviatura (2). Generuoti ir isrusiuoti (3)");
+                Console.WriteLine("Ivesti duomenis: is failo (1), su klaviatura (2). Generuoti ir isrusiuoti (3).\nTik rusiuoti ir matuoti (4).");
 
                 try
                 {
@@ -39,6 +39,8 @@ namespace LaboratorinisGit {
                     else if (a == 3)
                     {
                         generuotIrRusiuot();
+                    } else if (a == 4) {
+                        rusiavimasBeFailo();
                     } else { 
                         Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1, 2 arba 3");
                     }
@@ -106,6 +108,14 @@ namespace LaboratorinisGit {
                 }
                 
             }
+
+        }
+
+        static void rusiavimasBeFailo() {
+
+
+
+
 
         }
 
