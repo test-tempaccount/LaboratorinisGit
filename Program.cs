@@ -153,7 +153,7 @@ namespace LaboratorinisGit {
             }
 
             sss.Stop();
-            Console.WriteLine("Failu rusiavimas uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            Console.WriteLine("Failu rusiavimas su List uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
             sss.Reset();
 
             LinkedList<Student> linkedStudentai = new LinkedList<Student>(failoStudentai);
@@ -179,7 +179,7 @@ namespace LaboratorinisGit {
             }
 
             sss.Stop();
-            Console.WriteLine("Failu rusiavimas uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            Console.WriteLine("Failu rusiavimas su LinkedList uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
             linkedStudentai.Clear();
             sss.Reset();
 
@@ -206,7 +206,7 @@ namespace LaboratorinisGit {
             }
 
             sss.Stop();
-            Console.WriteLine("Failu rusiavimas uztruko " + (double) sss.ElapsedMilliseconds / 1000 + " sekundes");
+            Console.WriteLine("Failu rusiavimas su Queue uztruko " + (double) sss.ElapsedMilliseconds / 1000 + " sekundes");
         }
 
 
