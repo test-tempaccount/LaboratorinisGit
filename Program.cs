@@ -173,7 +173,30 @@ namespace LaboratorinisGit {
             linkedStudentai.Clear();
             sss.Reset();
 
+            Queue<Student> queueStudentai = new Queue<Student>(failoStudentai);
 
+            sss = new Stopwatch();
+            sss.Start();
+
+            foreach (Student student in queueStudentai)
+            {
+
+                double studentoVidurkis = tikVidurkis(student);
+
+                if (studentoVidurkis < 5)
+                {
+                    queueVargsiukai.Enqueue(student);
+
+                }
+                else
+                {
+                    queueKietiakai.Enqueue(student);
+
+                }
+            }
+
+            sss.Stop();
+            Console.WriteLine("Failu kurimas ir rusiavimas uztruko " + (double) sss.ElapsedMilliseconds / 1000 + " sekundes");
         }
 
 
