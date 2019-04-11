@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace LaboratorinisGit {
 
@@ -353,7 +354,8 @@ namespace LaboratorinisGit {
 
             foreach (string line in lines.Skip(1)){
 
-                    string[] l = line.Split(' ');
+                    String reg = Regex.Replace(line, @"\s+", " ");
+                    string[] l = reg.Split(' ');
                     List<int> ndPazymiai = new List<int>();
                     int egzaminas;
 
@@ -396,6 +398,7 @@ namespace LaboratorinisGit {
 
             foreach (int f in failai){
 
+
                 String header = "Vardas Pavarde ND1 ND2 ND3 ND4 ND5 Egzaminas";
                 StringBuilder visasTekstas = new StringBuilder();
                 Random rnd = new Random();
@@ -418,6 +421,7 @@ namespace LaboratorinisGit {
 
         public static int failoNdKiekis(String s){
 
+            s = Regex.Replace(s, @"\s+", " ");
             string[] l = s.Split(' ');
             int ndIndex = 0;
 
