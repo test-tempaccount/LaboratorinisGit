@@ -146,6 +146,34 @@ namespace LaboratorinisGit {
             Console.WriteLine("Failu kurimas ir rusiavimas uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
             sss.Reset();
 
+            LinkedList<Student> linkedStudentai = new LinkedList<Student>(failoStudentai);
+
+            sss = new Stopwatch();
+            sss.Start();
+
+            foreach (Student student in linkedStudentai)
+            {
+
+                double studentoVidurkis = tikVidurkis(student);
+
+                if (studentoVidurkis < 5)
+                {
+                    linkedVargsiukai.AddLast(student);
+
+                }
+                else
+                {
+                    linkedKietiakai.AddLast(student);
+
+                }
+            }
+
+            sss.Stop();
+            Console.WriteLine("Failu kurimas ir rusiavimas uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            linkedStudentai.Clear();
+            sss.Reset();
+
+
         }
 
 
