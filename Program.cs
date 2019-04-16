@@ -41,11 +41,11 @@ namespace LaboratorinisGit {
                     } else if (a == 4) {
                         rusiavimasIrMatavimas();
                     } else { 
-                        Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1, 2 arba 3");
+                        Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1, 2, 3 arba 4");
                     }
 
                 } catch (FormatException e) {
-                    Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1, 2 arba 3");
+                    Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1, 2, 3 arba 4");
                 }
 
             }
@@ -135,9 +135,82 @@ namespace LaboratorinisGit {
 
         static void strategija1(List<Student> fs)
         {
+           
+                       List<Student> vargsiukai = new List<Student>();
+            List<Student> kietiakai = new List<Student>();
+
+            LinkedList<Student> linkedVargsiukai = new LinkedList<Student>();
+            LinkedList<Student> linkedKietiakai = new LinkedList<Student>();
+
+            Queue<Student> queueVargsiukai = new Queue<Student>();
+            Queue<Student> queueKietiakai = new Queue<Student>();
+
+            Stopwatch sss = new Stopwatch();
+            sss.Start();
+
+            List<Student> failoStudentai = fs.OrderBy(o => tikVidurkis(o)).ToList();
+
+            //List<Student> SortedList = failoStudentai
+            int index = failoStudentai.FindIndex(x => tikVidurkis(x) >= 5);
+
+            vargsiukai.AddRange(failoStudentai.GetRange(0, index));
+            kietiakai.AddRange(failoStudentai.GetRange(index, failoStudentai.Count - index));
+
+            sss.Stop();
+            Console.WriteLine("Failu rusiavimas su List uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            sss.Reset();
+
+
+            sss = new Stopwatch();
+            sss.Start();
+
+
+            LinkedList<Student> linkedStudentai = new LinkedList<Student>(failoStudentai);
+
+            foreach (Student student in linkedStudentai)
+            {
+                if (tikVidurkis(student) < 5)
+                {
+                    linkedVargsiukai.AddLast(student);
+
+                }
+                else
+                {
+                    linkedKietiakai.AddLast(student);
+                }
+
+            }
+
+            sss.Stop();
+            Console.WriteLine("Failu rusiavimas su LinkedList uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            linkedStudentai.Clear();
+            sss.Reset();
+
+            sss = new Stopwatch();
+            sss.Start();
+
+            Queue<Student> queueStudentai = new Queue<Student>(failoStudentai);
+
+            foreach (Student student in queueStudentai)
+            {
+                if (tikVidurkis(student) < 5)
+                {
+                    queueVargsiukai.Enqueue(student);
+
+                }
+                else
+                {
+                    queueKietiakai.Enqueue(student); ;
+                }
+            }
+
+            sss.Stop();
+            Console.WriteLine("Failu rusiavimas su Queue uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            queueStudentai.Clear();
+            
         }
         
-        static void strategija1(List<Student> fs)
+        static void strategija2(List<Student> fs)
         {
         }
 
