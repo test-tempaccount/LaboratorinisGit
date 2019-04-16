@@ -155,6 +155,22 @@ namespace LaboratorinisGit {
 
             vargsiukai.AddRange(failoStudentai.GetRange(0, index));
             kietiakai.AddRange(failoStudentai.GetRange(index, failoStudentai.Count - index));
+            
+            //foreach (Student student in failoStudentai)
+            //{
+
+            //    double studentoVidurkis = tikVidurkis(student);
+
+            //    if (studentoVidurkis < 5)
+            //    {
+            //        vargsiukai.Add(student);
+            //    }
+            //    else
+            //    {
+            //        kietiakai.Add(student);
+
+            //    }
+            //}
 
             sss.Stop();
             Console.WriteLine("Failu rusiavimas su List uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
@@ -180,6 +196,25 @@ namespace LaboratorinisGit {
                 }
 
             }
+            
+            //LinkedList<Student> linkedStudentai = new LinkedList<Student>(failoStudentai);
+
+            //foreach (Student student in linkedStudentai)
+            //{
+
+            //    double studentoVidurkis = tikVidurkis(student);
+
+            //    if (studentoVidurkis < 5)
+            //    {
+            //        linkedVargsiukai.AddLast(student);
+
+            //    }
+            //    else
+            //    {
+            //        linkedKietiakai.AddLast(student);
+
+            //    }
+            //}
 
             sss.Stop();
             Console.WriteLine("Failu rusiavimas su LinkedList uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
@@ -203,6 +238,25 @@ namespace LaboratorinisGit {
                     queueKietiakai.Enqueue(student); ;
                 }
             }
+            
+            //Queue<Student> queueStudentai = new Queue<Student>(failoStudentai);
+
+            //foreach (Student student in queueStudentai)
+            //{
+
+            //    double studentoVidurkis = tikVidurkis(student);
+
+            //    if (studentoVidurkis < 5)
+            //    {
+            //        queueVargsiukai.Enqueue(student);
+
+            //    }
+            //    else
+            //    {
+            //        queueKietiakai.Enqueue(student);
+
+            //    }
+            //}
 
             sss.Stop();
             Console.WriteLine("Failu rusiavimas su Queue uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
