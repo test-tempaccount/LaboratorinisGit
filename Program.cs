@@ -226,6 +226,17 @@ namespace LaboratorinisGit {
             listVargsiukai.AddRange(SortedList.GetRange(0,index));
             SortedList.RemoveRange(0, index);
 
+            //for (int i = listStudentai.Count - 1; i >= 0; i--)
+            //{
+            //    double studentoVidurkis = tikVidurkis(listStudentai[i]);
+
+            //    if (studentoVidurkis < 5)
+            //    {
+            //        listVargsiukai.Add(listStudentai[i]);
+            //        listStudentai.RemoveAt(i);
+            //    }
+            //}
+
             sss.Stop();
             Console.WriteLine("Failu rusiavimas su List uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
             sss.Reset();
@@ -263,6 +274,17 @@ namespace LaboratorinisGit {
 
             }
 
+            //for (int i = linkedStudentai.Count - 1; i >= 0; i--)
+            //{
+            //    double studentoVidurkis = tikVidurkis(linkedStudentai.ElementAt(i));
+
+            //    if (studentoVidurkis < 5)
+            //    {
+            //        linkedVargsiukai.AddLast(linkedStudentai.ElementAt(i));
+            //        linkedStudentai.Remove(linkedStudentai.ElementAt(i));
+            //    }
+            //}
+
             sss.Stop();
             Console.WriteLine("Failu rusiavimas su LinkedList uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
             linkedStudentai.Clear();
@@ -296,6 +318,20 @@ namespace LaboratorinisGit {
                 queueStudentai.Dequeue();
                 index--;
             }
+
+            //foreach (Student student in queueStudentai)
+            //{
+
+            //    double studentoVidurkis = tikVidurkis(student);
+
+            //    if (studentoVidurkis < 5)
+            //    {
+            //        queueVargsiukai.Enqueue(student);
+            //        queueStudentai.Dequeue();
+
+            //    }
+            //}
+
 
             sss.Stop();
             Console.WriteLine("Failu rusiavimas su Queue uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
