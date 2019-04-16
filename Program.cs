@@ -141,7 +141,7 @@ namespace LaboratorinisGit
             Console.WriteLine("Atliekama 2 strategija (su rusiavimu)");
             strategija2(failoStudentai);
             Console.WriteLine("-------------------------------------");
-            Console.WriteLine("Atliekamas optimizuoto ir neoptimizuoto List<T> testavimas");
+            Console.WriteLine("Atliekamas optimizuoto ir neoptimizuoto (isrusiuoto) List<T> testavimas");
             listOptimizacija(failoStudentai);
             Console.WriteLine("-------------------------------------");
             failoStudentai.Clear();
@@ -328,6 +328,8 @@ namespace LaboratorinisGit
             sss.Stop();
             Console.WriteLine("Failu rusiavimas su Queue uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
             queueStudentai.Clear();
+            queueKietiakai.Clear();
+            queueVargsiukai.Clear();
             
 
         }
