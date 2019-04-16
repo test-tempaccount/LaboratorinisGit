@@ -1,5 +1,22 @@
 # LaboratorinisGit
 
+Atliekama 1 strategija
+Failu rusiavimas su List uztruko 0,302 sekundes
+Failu rusiavimas su LinkedList uztruko 0,699 sekundes
+Failu rusiavimas su Queue uztruko 0,368 sekundes
+-------------------------------------
+Atliekama 2 strategija (su rusiavimu)
+Failu rusiavimas su List uztruko 1,652 sekundes
+Failu rusiavimas su LinkedList uztruko 1,635 sekundes
+Failu rusiavimas su Queue uztruko 1,736 sekundes
+-------------------------------------
+Atliekamas optimizuoto ir neoptimizuoto List<T> testavimas
+Failu rusiavimas su List, naudojant AddRange uztruko 1,682 sekundes
+Failu rusiavimas su List, naudojant Insert uztruko 1,558 sekundes
+-------------------------------------
+  
+Rūšiavimas užtrunka daug laiko, tačiau labai naudinga jeigu iš List<T> bus šalinimi, elementai, nes nereikia su kiekvienu List<T>.RemoveAt() ar List<T>.Remove() perstumpti viso dinaminio masyvo.
+
 # Pradinis funkcionalumas (0.1v)
 
 Programa skirta suskaičiuoti studento galutiniui vidurkiui (pagal pažymių medianą arba pagal pažymių vidurkį).
