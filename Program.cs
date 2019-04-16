@@ -212,6 +212,96 @@ namespace LaboratorinisGit {
         
         static void strategija2(List<Student> fs)
         {
+            
+             List<Student> listVargsiukai = new List<Student>();
+            LinkedList<Student> linkedVargsiukai = new LinkedList<Student>();
+            Queue<Student> queueVargsiukai = new Queue<Student>();
+
+            Stopwatch sss = new Stopwatch();
+            sss.Start();
+
+            List<Student> SortedList = failoStudentai.OrderBy(o => tikVidurkis(o)).ToList();
+            int index = SortedList.FindIndex(x => tikVidurkis(x) >= 5);
+
+            listVargsiukai.AddRange(SortedList.GetRange(0,index));
+            SortedList.RemoveRange(0, index);
+
+            sss.Stop();
+            Console.WriteLine("Failu rusiavimas su List uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            sss.Reset();
+            listVargsiukai.Clear();
+            SortedList.Clear();
+
+            sss = new Stopwatch();
+            sss.Start();
+
+            LinkedList<Student> linkedStudentai = new LinkedList<Student>(failoStudentai.OrderBy(o => tikVidurkis(o)).ToList());
+
+            index = 0;
+
+            foreach (Student student in linkedStudentai)
+            {
+                if (tikVidurkis(student) < 5)
+                {
+                    linkedVargsiukai.AddLast(student);
+
+                }
+                else
+                {
+                    break;
+                }
+                index++;       
+            }
+
+            foreach (Student student in linkedVargsiukai)
+            {
+                
+                if (linkedStudentai.Contains(student))
+                {
+                    linkedStudentai.Remove(student);
+                }
+
+            }
+
+            sss.Stop();
+            Console.WriteLine("Failu rusiavimas su LinkedList uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            linkedStudentai.Clear();
+            linkedVargsiukai.Clear();
+            sss.Reset();
+
+
+            sss = new Stopwatch();
+            sss.Start();
+
+            Queue<Student> queueStudentai = new Queue<Student>(failoStudentai.OrderBy(o => tikVidurkis(o)).ToList());
+
+            index = 0;
+
+            foreach (Student student in queueStudentai)
+            {
+                if (tikVidurkis(student) < 5)
+                {
+                    queueVargsiukai.Enqueue(student);
+
+                }
+                else
+                {
+                    break;
+                }
+                index++;
+            }
+
+            while (index > 0)
+            {
+                queueStudentai.Dequeue();
+                index--;
+            }
+
+            sss.Stop();
+            Console.WriteLine("Failu rusiavimas su Queue uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            queueStudentai.Clear();
+            queueVargsiukai.Clear();
+
         }
 
 
