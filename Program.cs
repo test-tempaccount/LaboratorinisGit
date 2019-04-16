@@ -6,7 +6,8 @@ using System.Text;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace LaboratorinisGit {
+namespace LaboratorinisGit
+{
 
     class Program
     {
@@ -16,8 +17,9 @@ namespace LaboratorinisGit {
 
         static void Main(string[] args)
         {
-            
-            while (true) {
+
+            while (true)
+            {
 
                 students.Clear();
                 Console.WriteLine("Ivesti duomenis: is failo (1), su klaviatura (2).\nGeneruoti ir isrusiuoti (3). Tik rusiuoti ir matuoti (4).");
@@ -38,18 +40,23 @@ namespace LaboratorinisGit {
                     else if (a == 3)
                     {
                         generuotIrRusiuot();
-                    } else if (a == 4) {
+                    }
+                    else if (a == 4)
+                    {
                         rusiavimasIrMatavimas();
-                    } else { 
+                    }
+                    else
+                    {
                         Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1, 2, 3 arba 4");
                     }
 
-                } catch (FormatException e) {
+                }
+                catch (FormatException e)
+                {
                     Console.WriteLine("Neteisinga ivestis. Galima ivesti tik 1, 2, 3 arba 4");
                 }
 
             }
-
 
         }
 
@@ -60,7 +67,7 @@ namespace LaboratorinisGit {
             irasytiIFaila();
             rusiavimasIFailus();
             stopwatch.Stop();
-            Console.WriteLine("Failu kurimas ir rusiavimas uztruko " + (double)stopwatch.ElapsedMilliseconds/1000 + " sekundes");
+            Console.WriteLine("Failu kurimas ir rusiavimas uztruko " + (double)stopwatch.ElapsedMilliseconds / 1000 + " sekundes");
         }
 
         static void pridetiSuFailu()
@@ -87,7 +94,8 @@ namespace LaboratorinisGit {
                     neigEgz = true;
                 }
 
-                foreach(int vi in std.getPazymiai()){
+                foreach (int vi in std.getPazymiai())
+                {
                     if (vi == -1)
                     {
                         neigNd = true;
@@ -104,11 +112,11 @@ namespace LaboratorinisGit {
                     Console.WriteLine("{0,-10}{1,-15}{2,15}{3,20}", std.getVardas(), std.getPavarde(),
                     tikVidurkis(std), tikMediana(std));
                 }
-                
+
             }
 
         }
-        
+
         static void rusiavimasIrMatavimas()
         {
             Console.WriteLine("Iveskite failo pavadinima (tinka tik .txt)");
@@ -124,19 +132,71 @@ namespace LaboratorinisGit {
                 failoStudentai = nuskaitytiFaila(path + ".txt");
             }
 
-            
+
             Console.WriteLine(" ");
 
             Console.WriteLine("Atliekama 1 strategija");
             strategija1(failoStudentai);
+            Console.WriteLine("-------------------------------------");
             Console.WriteLine("Atliekama 2 strategija (su rusiavimu)");
             strategija2(failoStudentai);
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Atliekamas optimizuoto ir neoptimizuoto List<T> testavimas");
+            listOptimizacija(failoStudentai);
+            Console.WriteLine("-------------------------------------");
+            failoStudentai.Clear();
+        }
+
+        static void listOptimizacija(List<Student> fs)
+        {
+            List<Student> vargsiukai = new List<Student>();
+            List<Student> kietiakai = new List<Student>();
+
+            List<Student> failoStudentai = fs;
+
+            Stopwatch sss = new Stopwatch();
+            sss.Start();
+
+            List<Student> SortedList = failoStudentai.OrderBy(o => tikVidurkis(o)).ToList();
+            int index = SortedList.FindIndex(x => tikVidurkis(x) >= 5);
+
+            vargsiukai.AddRange(SortedList.GetRange(0, index));
+            kietiakai.AddRange(SortedList.GetRange(index, kietiakai.Count));
+
+            sss.Stop();
+            Console.WriteLine("Failu rusiavimas su List, naudojant AddRange uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            sss.Reset();
+            vargsiukai.Clear();
+            kietiakai.Clear();
+
+            sss = new Stopwatch();
+            sss.Start();
+
+            SortedList = failoStudentai.OrderBy(o => tikVidurkis(o)).ToList();
+            index = SortedList.FindIndex(x => tikVidurkis(x) >= 5);
+
+            for (int i = 0; i < index; i++)
+            {
+                vargsiukai.Add(SortedList.ElementAt(i));
+            }
+
+            for (int i = index; i < SortedList.Count; i++)
+            {
+                kietiakai.Add(SortedList.ElementAt(i));
+            }
+
+            sss.Stop();
+            Console.WriteLine("Failu rusiavimas su List, naudojant Insert uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
+            sss.Reset();
+            vargsiukai.Clear();
+            kietiakai.Clear();
+
         }
 
         static void strategija1(List<Student> fs)
         {
-           
-                       List<Student> vargsiukai = new List<Student>();
+
+            List<Student> vargsiukai = new List<Student>();
             List<Student> kietiakai = new List<Student>();
 
             LinkedList<Student> linkedVargsiukai = new LinkedList<Student>();
@@ -148,38 +208,39 @@ namespace LaboratorinisGit {
             Stopwatch sss = new Stopwatch();
             sss.Start();
 
-            List<Student> failoStudentai = fs.OrderBy(o => tikVidurkis(o)).ToList();
+            List<Student> failoStudentai = fs;
 
-            //List<Student> SortedList = failoStudentai
-            int index = failoStudentai.FindIndex(x => tikVidurkis(x) >= 5);
+            ////List<Student> SortedList = failoStudentai
+            //int index = failoStudentai.FindIndex(x => tikVidurkis(x) >= 5);
 
-            vargsiukai.AddRange(failoStudentai.GetRange(0, index));
-            kietiakai.AddRange(failoStudentai.GetRange(index, failoStudentai.Count - index));
-            
-            //foreach (Student student in failoStudentai)
-            //{
+            //vargsiukai.AddRange(failoStudentai.GetRange(0, index));
+            //kietiakai.AddRange(failoStudentai.GetRange(index, failoStudentai.Count - index));
 
-            //    double studentoVidurkis = tikVidurkis(student);
+            foreach (Student student in failoStudentai)
+            {
 
-            //    if (studentoVidurkis < 5)
-            //    {
-            //        vargsiukai.Add(student);
-            //    }
-            //    else
-            //    {
-            //        kietiakai.Add(student);
+                double studentoVidurkis = tikVidurkis(student);
 
-            //    }
-            //}
+                if (studentoVidurkis < 5)
+                {
+                    vargsiukai.Add(student);
+                }
+                else
+                {
+                    kietiakai.Add(student);
+
+                }
+            }
 
             sss.Stop();
             Console.WriteLine("Failu rusiavimas su List uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
             sss.Reset();
+            vargsiukai.Clear();
+            kietiakai.Clear();
 
 
             sss = new Stopwatch();
             sss.Start();
-
 
             LinkedList<Student> linkedStudentai = new LinkedList<Student>(failoStudentai);
 
@@ -196,7 +257,7 @@ namespace LaboratorinisGit {
                 }
 
             }
-            
+
             //LinkedList<Student> linkedStudentai = new LinkedList<Student>(failoStudentai);
 
             //foreach (Student student in linkedStudentai)
@@ -219,10 +280,14 @@ namespace LaboratorinisGit {
             sss.Stop();
             Console.WriteLine("Failu rusiavimas su LinkedList uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
             linkedStudentai.Clear();
+            linkedKietiakai.Clear();
+            linkedVargsiukai.Clear();
             sss.Reset();
 
             sss = new Stopwatch();
             sss.Start();
+
+            
 
             Queue<Student> queueStudentai = new Queue<Student>(failoStudentai);
 
@@ -238,7 +303,7 @@ namespace LaboratorinisGit {
                     queueKietiakai.Enqueue(student); ;
                 }
             }
-            
+
             //Queue<Student> queueStudentai = new Queue<Student>(failoStudentai);
 
             //foreach (Student student in queueStudentai)
@@ -258,26 +323,31 @@ namespace LaboratorinisGit {
             //    }
             //}
 
+            
+
             sss.Stop();
             Console.WriteLine("Failu rusiavimas su Queue uztruko " + (double)sss.ElapsedMilliseconds / 1000 + " sekundes");
             queueStudentai.Clear();
             
+
         }
-        
+
         static void strategija2(List<Student> fs)
         {
-            
-             List<Student> listVargsiukai = new List<Student>();
+
+            List<Student> listVargsiukai = new List<Student>();
             LinkedList<Student> linkedVargsiukai = new LinkedList<Student>();
             Queue<Student> queueVargsiukai = new Queue<Student>();
 
             Stopwatch sss = new Stopwatch();
             sss.Start();
 
+            List<Student> failoStudentai = fs;
+
             List<Student> SortedList = failoStudentai.OrderBy(o => tikVidurkis(o)).ToList();
             int index = SortedList.FindIndex(x => tikVidurkis(x) >= 5);
 
-            listVargsiukai.AddRange(SortedList.GetRange(0,index));
+            listVargsiukai.AddRange(SortedList.GetRange(0, index));
             SortedList.RemoveRange(0, index);
 
             //for (int i = listStudentai.Count - 1; i >= 0; i--)
@@ -315,12 +385,12 @@ namespace LaboratorinisGit {
                 {
                     break;
                 }
-                index++;       
+                index++;
             }
 
             foreach (Student student in linkedVargsiukai)
             {
-                
+
                 if (linkedStudentai.Contains(student))
                 {
                     linkedStudentai.Remove(student);
@@ -398,15 +468,15 @@ namespace LaboratorinisGit {
         static void rusiavimasIFailus()
         {
 
-            int[] failai = {10, 100, 1000, 10000, 100000};
-            
+            int[] failai = { 10, 100, 1000, 10000, 100000 };
+
             List<Student> vargsiukai = new List<Student>();
             List<Student> kietiakai = new List<Student>();
 
             foreach (int f in failai)
             {
-                List<Student> failoStudentai = nuskaitytiFaila(f+".txt");
-                
+                List<Student> failoStudentai = nuskaitytiFaila(f + ".txt");
+
 
                 foreach (Student student in failoStudentai)
                 {
@@ -416,12 +486,12 @@ namespace LaboratorinisGit {
                     if (studentoVidurkis < 5)
                     {
                         vargsiukai.Add(student);
-                        
+
                     }
                     else
                     {
                         kietiakai.Add(student);
-                        
+
                     }
                 }
 
@@ -429,10 +499,10 @@ namespace LaboratorinisGit {
 
             StringBuilder eilute = new StringBuilder();
 
-            foreach(Student student in vargsiukai)
+            foreach (Student student in vargsiukai)
             {
                 string fg = string.Join(" ", student.getPazymiai());
-                eilute.Append(student.getVardas() + " " + student.getPavarde() + " " + fg +  " " + student.getEgzaminas() + "\n");
+                eilute.Append(student.getVardas() + " " + student.getPavarde() + " " + fg + " " + student.getEgzaminas() + "\n");
             }
 
             File.WriteAllText("vargsiukai.txt", eilute.ToString());
@@ -449,7 +519,7 @@ namespace LaboratorinisGit {
 
         }
 
-        
+
 
         static void pridetiSuKlaviatura()
         {
@@ -551,12 +621,14 @@ namespace LaboratorinisGit {
         {
             double suma = 0;
             List<int> ls = student.getPazymiai();
-            for (int i = 0; i < ls.Count; i++) {
+            for (int i = 0; i < ls.Count; i++)
+            {
                 suma += ls.ElementAt(i);
             }
-            
 
-            if (s.Equals("v")) {
+
+            if (s.Equals("v"))
+            {
                 return 0.3 * (suma / ls.Count) + 0.7 * student.getEgzaminas();
             }
 
@@ -573,7 +645,7 @@ namespace LaboratorinisGit {
                 suma += ls.ElementAt(i);
             }
 
-            
+
 
             return 0.3 * (suma / ls.Count) + 0.7 * student.getEgzaminas();
         }
@@ -583,15 +655,17 @@ namespace LaboratorinisGit {
             return 0.3 * skaiciuotiMediana(student) + 0.7 * student.getEgzaminas();
         }
 
-        static List<int> generatePazymiai(int kiekis, Random rnd) {
+        static List<int> generatePazymiai(int kiekis, Random rnd)
+        {
 
             List<int> temp = new List<int>();
 
-            for (int i = 0; i < kiekis; i++ ) {
+            for (int i = 0; i < kiekis; i++)
+            {
                 int rndPazimys = rnd.Next(1, 11);
                 temp.Add(rndPazimys);
             }
-           
+
             return temp;
 
         }
@@ -602,66 +676,75 @@ namespace LaboratorinisGit {
         }
 
 
-        static List<Student> nuskaitytiFaila(String path) {
+        static List<Student> nuskaitytiFaila(String path)
+        {
 
             IEnumerable<String> lines = null;
 
             bool f = true;
-            while (f) {
+            while (f)
+            {
                 try
                 {
                     lines = File.ReadLines(path, Encoding.GetEncoding(1257));
                     f = false;
-                } catch (Exception e) {
-                    Console.WriteLine("Nerastas failas "+path+". Ikelkite faila ir paspauskite betkoki klavisa, kad testi");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Nerastas failas " + path + ". Ikelkite faila ir paspauskite betkoki klavisa, kad testi");
                     Console.ReadKey();
                 }
             }
-        
+
 
             int ndKiekis = failoNdKiekis(lines.First());
 
-            if (ndKiekis == 0) {
-                Console.WriteLine("Faile "+path+" nera nurodyto nei vieno pazymio.");
+            if (ndKiekis == 0)
+            {
+                Console.WriteLine("Faile " + path + " nera nurodyto nei vieno pazymio.");
                 return null;
             }
-       
+
             List<Student> tempSt = new List<Student>();
 
-            foreach (string line in lines.Skip(1)){
+            foreach (string line in lines.Skip(1))
+            {
 
-                    String reg = Regex.Replace(line, @"\s+", " ");
-                    string[] l = reg.Split(' ');
-                    List<int> ndPazymiai = new List<int>();
-                    int egzaminas;
+                String reg = Regex.Replace(line, @"\s+", " ");
+                string[] l = reg.Split(' ');
+                List<int> ndPazymiai = new List<int>();
+                int egzaminas;
 
-                    for (int i = 2; i < ndKiekis + 2; i++)
+                for (int i = 2; i < ndKiekis + 2; i++)
+                {
+
+                    if (l[i].All(Char.IsDigit))
                     {
-                        
-                        if ( l[i].All(Char.IsDigit) ) {
                         ndPazymiai.Add(int.Parse(l[i]));
-                    }else {
+                    }
+                    else
+                    {
                         ndPazymiai.Add(-1);
                     }
 
-                        
-                    }
+
+                }
 
                 if (l[ndKiekis + 2].All(char.IsDigit))
                 {
                     egzaminas = int.Parse(l[ndKiekis + 2]);
-                    
+
                 }
                 else
                 {
                     egzaminas = -1;
                 }
 
-                    Student student = new Student(l[0], l[1]);
-                    student.addEgzaminas(egzaminas);
-                    student.setPazymiai(ndPazymiai);
+                Student student = new Student(l[0], l[1]);
+                student.addEgzaminas(egzaminas);
+                student.setPazymiai(ndPazymiai);
 
-                    tempSt.Add(student);
+                tempSt.Add(student);
             }
 
             return tempSt;
@@ -670,9 +753,10 @@ namespace LaboratorinisGit {
         static void irasytiIFaila()
         {
 
-            int[] failai = { 10, 100, 1000, 10000, 100000};
+            int[] failai = { 10, 100, 1000, 10000, 100000 };
 
-            foreach (int f in failai){
+            foreach (int f in failai)
+            {
 
 
                 String header = "Vardas Pavarde ND1 ND2 ND3 ND4 ND5 Egzaminas";
@@ -690,18 +774,20 @@ namespace LaboratorinisGit {
                     visasTekstas.Append("\n");
                 }
 
-                File.WriteAllText(f+".txt", visasTekstas.ToString());
+                File.WriteAllText(f + ".txt", visasTekstas.ToString());
 
             }
         }
 
-        public static int failoNdKiekis(String s){
+        public static int failoNdKiekis(String s)
+        {
 
             s = Regex.Replace(s, @"\s+", " ");
             string[] l = s.Split(' ');
             int ndIndex = 0;
 
-            for (int i = 2; i < l.Length; i++){
+            for (int i = 2; i < l.Length; i++)
+            {
 
                 if (l[i].StartsWith("ND"))
                 {
@@ -710,12 +796,13 @@ namespace LaboratorinisGit {
 
             }
 
-                return ndIndex;
+            return ndIndex;
         }
 
 
 
-        static double skaiciuotiMediana(Student student) {
+        static double skaiciuotiMediana(Student student)
+        {
 
             int[] tempArray = student.getPazymiai().ToArray();
             int count = tempArray.Length;
@@ -724,13 +811,16 @@ namespace LaboratorinisGit {
 
             double mediana = 0;
 
-            if (count % 2 == 0){
+            if (count % 2 == 0)
+            {
 
                 int kaire = tempArray[(count / 2) - 1];
                 int desine = tempArray[(count / 2)];
                 mediana = ((double)kaire + (double)desine) / 2;
 
-            }else{
+            }
+            else
+            {
                 mediana = tempArray[(count / 2)];
             }
 
